@@ -5,35 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Grade Calculator</title>
-
-    <!-- Connect the CSS stylesheet. -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Student Grade Calculator</h1>
 
-        <!-- Student name input. -->
         <label for="studentName">Student Name:</label>
         <input type="text" id="studentName" placeholder="Enter student name">
 
-        <!-- MCO is worth 50% of the final grade. -->
         <label for="mco">MCO Grade (50%):</label>
         <input type="number" id="mco" placeholder="Enter MCO grade"
                min="0" max="100" step="any">
 
-        <!-- Exam is worth 30% of the final grade. -->
         <label for="exam">Exam Grade (30%):</label>
         <input type="number" id="exam" placeholder="Enter exam grade"
                min="0" max="100" step="any">
 
-        <!-- Attendance and Quiz are worth 20% of the final grade. -->
         <label for="attendanceQuiz">Attendance and Quiz Grade (20%):</label>
         <input type="number" id="attendanceQuiz"
                placeholder="Enter attendance and quiz grade"
                min="0" max="100" step="any">
 
-        <!-- Buttons for calculating and resetting grades. -->
         <div class="button-group">
             <button type="button" onclick="calculateGrade()">
                 Calculate Grade
@@ -44,11 +37,23 @@
             </button>
         </div>
 
-        <!-- Display the calculated grade or validation messages. -->
+        <!-- Displays the latest calculation or validation message. -->
         <div id="result" aria-live="polite"></div>
+
+        <!-- Displays previously saved grade calculations. -->
+        <section class="history-section">
+            <h2>Calculation History</h2>
+
+            <button type="button" onclick="clearHistory()" class="clear-history-button">
+                Clear History
+            </button>
+
+            <div id="historyList" aria-live="polite">
+                <!-- JavaScript adds saved calculations here. -->
+            </div>
+        </section>
     </div>
 
-    <!-- Connect the JavaScript file. -->
     <script src="script.js"></script>
 </body>
 </html>
