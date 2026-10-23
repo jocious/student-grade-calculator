@@ -5,26 +5,25 @@ function calculateGrade() {
     // Get the student's name and remove extra spaces.
     let name = document.getElementById("studentName").value.trim();
 
-    // Get the original grade values as text.
-    // This lets us detect empty inputs before converting them to numbers.
+    // Get the grade inputs as text.
     let mcoInput = document.getElementById("mco").value.trim();
     let examInput = document.getElementById("exam").value.trim();
     let attendanceQuizInput =
         document.getElementById("attendanceQuiz").value.trim();
 
-    // Get the area where the result or error message will appear.
+    // Get the result area from the HTML.
     let resultDiv = document.getElementById("result");
 
-    // Remove the previous result before calculating again.
+    // Clear the previous result.
     resultDiv.textContent = "";
 
-    // Check whether the student entered a name.
+    // Check if the student name is empty.
     if (name === "") {
         resultDiv.textContent = "Please enter the student's name.";
         return;
     }
 
-    // Check whether all three grade fields contain values.
+    // Check if any grade field is empty.
     if (
         mcoInput === "" ||
         examInput === "" ||
@@ -34,12 +33,12 @@ function calculateGrade() {
         return;
     }
 
-    // Convert the input values from text into numbers.
+    // Convert the grade inputs into numbers.
     let mco = Number(mcoInput);
     let exam = Number(examInput);
     let attendanceQuiz = Number(attendanceQuizInput);
 
-    // Make sure the entered grades are valid numbers.
+    // Check if all inputs are valid numbers.
     if (
         !Number.isFinite(mco) ||
         !Number.isFinite(exam) ||
@@ -59,23 +58,34 @@ function calculateGrade() {
         return;
     }
 
-    // Calculate each component using its assigned percentage.
-    let weightedMCO = mco * 0.50;                 // 50% weight
-    let weightedExam = exam * 0.30;               // 30% weight
-    let weightedAttendanceQuiz = attendanceQuiz * 0.20; // 20% weight
+    // Calculate the weighted score of each component.
+    let weightedMCO = mco * 0.50;
+    let weightedExam = exam * 0.30;
+    let weightedAttendanceQuiz = attendanceQuiz * 0.20;
 
     // Add the weighted scores to get the final grade.
     let finalGrade =
         weightedMCO + weightedExam + weightedAttendanceQuiz;
 
-    // Determine the student's result based on the final grade.
+    // Create variables for the letter grade and result message.
+    let letterGrade;
     let result;
 
+    // Assign a letter grade based on the final grade.
     if (finalGrade >= 90) {
+        letterGrade = "A";
         result = "Excellent!";
+    } else if (finalGrade >= 85) {
+        letterGrade = "B";
+        result = "Passed!";
+    } else if (finalGrade >= 80) {
+        letterGrade = "C";
+        result = "Passed!";
     } else if (finalGrade >= 75) {
+        letterGrade = "D";
         result = "Passed!";
     } else {
+        letterGrade = "F";
         result = "Failed.";
     }
 
@@ -83,16 +93,22 @@ function calculateGrade() {
     let studentParagraph = document.createElement("p");
     studentParagraph.textContent = "Student: " + name;
 
-    // Display the final weighted grade to two decimal places.
+    // Display the final weighted grade.
     let gradeParagraph = document.createElement("p");
-    gradeParagraph.textContent = "Final Grade: " + finalGrade.toFixed(2);
+    gradeParagraph.textContent =
+        "Final Grade: " + finalGrade.toFixed(2);
 
-    // Display the result classification.
+    // Display the letter grade.
+    let letterParagraph = document.createElement("p");
+    letterParagraph.textContent = "Letter Grade: " + letterGrade;
+
+    // Display the pass/fail result.
     let resultParagraph = document.createElement("p");
     resultParagraph.textContent = "Result: " + result;
 
-    // Add all three paragraphs to the result area.
+    // Add all results to the HTML result area.
     resultDiv.appendChild(studentParagraph);
     resultDiv.appendChild(gradeParagraph);
+    resultDiv.appendChild(letterParagraph);
     resultDiv.appendChild(resultParagraph);
 }
