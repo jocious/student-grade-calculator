@@ -6,39 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Grade Calculator</title>
 
-    <!-- Connect the CSS file to style the webpage. -->
+    <!-- Connect the CSS stylesheet. -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Student Grade Calculator</h1>
 
-        <!-- Input for the student's name. -->
+        <!-- Student name input. -->
         <label for="studentName">Student Name:</label>
         <input type="text" id="studentName" placeholder="Enter student name">
 
-        <!-- MCO contributes 50% to the final grade. -->
+        <!-- MCO is worth 50% of the final grade. -->
         <label for="mco">MCO Grade (50%):</label>
         <input type="number" id="mco" placeholder="Enter MCO grade"
                min="0" max="100" step="any">
 
-        <!-- Exam contributes 30% to the final grade. -->
+        <!-- Exam is worth 30% of the final grade. -->
         <label for="exam">Exam Grade (30%):</label>
         <input type="number" id="exam" placeholder="Enter exam grade"
                min="0" max="100" step="any">
 
-        <!-- Attendance and Quiz together contribute 20%. -->
+        <!-- Attendance and Quiz are worth 20% of the final grade. -->
         <label for="attendanceQuiz">Attendance and Quiz Grade (20%):</label>
         <input type="number" id="attendanceQuiz"
                placeholder="Enter attendance and quiz grade"
                min="0" max="100" step="any">
 
-        <!-- Run the JavaScript function when clicked. -->
-        <button type="button" onclick="calculateGrade()">
-            Calculate Grade
-        </button>
+        <!-- Buttons for calculating and resetting grades. -->
+        <div class="button-group">
+            <button type="button" onclick="calculateGrade()">
+                Calculate Grade
+            </button>
 
-        <!-- Display validation messages and the calculated result. -->
+            <button type="button" class="reset-button" onclick="resetCalculator()">
+                Reset
+            </button>
+        </div>
+
+        <!-- Display the calculated grade or validation messages. -->
         <div id="result" aria-live="polite"></div>
     </div>
 

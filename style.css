@@ -1,37 +1,25 @@
 
-/* Style the result area. */
-#result {
-    margin-top: 25px;
-    padding: 10px;
-    font-size: 18px;
-    overflow-wrap: anywhere;
-    border-radius: 5px;
+/* Keep the buttons together with space between them. */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
-/* Green background for excellent grades. */
-#result.excellent {
-    background-color: lightgreen;
-    color: darkgreen;
-    border: 2px solid green;
+/* Remove the old top margin because the group has its own margin. */
+.button-group button {
+    margin-top: 0;
 }
 
-/* Blue background for passing grades. */
-#result.passed {
-    background-color: lightblue;
-    color: darkblue;
-    border: 2px solid blue;
+/* Style the Reset button differently from the Calculate button. */
+.reset-button {
+    background-color: firebrick;
+    color: white;
 }
 
-/* Red background for failing grades. */
-#result.failed {
-    background-color: lightpink;
-    color: darkred;
-    border: 2px solid red;
-}
-
-/* Show validation errors in red. */
-#result.error {
-    background-color: white;
-    color: red;
-    border: 2px solid red;
+/* Change the Reset button color when the mouse hovers over it. */
+.reset-button:hover {
+    background-color: darkred;
 }

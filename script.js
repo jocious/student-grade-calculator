@@ -11,10 +11,10 @@ function calculateGrade() {
     let attendanceQuizInput =
         document.getElementById("attendanceQuiz").value.trim();
 
-    // Get the HTML element where the result will appear.
+    // Get the result area from the HTML.
     let resultDiv = document.getElementById("result");
 
-    // Clear the previous result and its color.
+    // Clear the previous result and color.
     resultDiv.textContent = "";
     resultDiv.className = "";
 
@@ -41,7 +41,7 @@ function calculateGrade() {
     let exam = Number(examInput);
     let attendanceQuiz = Number(attendanceQuizInput);
 
-    // Make sure all inputs are valid numbers.
+    // Check whether all grades are valid numbers.
     if (
         !Number.isFinite(mco) ||
         !Number.isFinite(exam) ||
@@ -52,7 +52,7 @@ function calculateGrade() {
         return;
     }
 
-    // Check that every grade is between 0 and 100.
+    // Check whether all grades are between 0 and 100.
     if (
         mco < 0 || mco > 100 ||
         exam < 0 || exam > 100 ||
@@ -63,20 +63,20 @@ function calculateGrade() {
         return;
     }
 
-    // Calculate each component using its assigned weight.
+    // Calculate each grade component using its assigned weight.
     let weightedMCO = mco * 0.50;
     let weightedExam = exam * 0.30;
     let weightedAttendanceQuiz = attendanceQuiz * 0.20;
 
-    // Add the weighted scores to get the final grade.
+    // Add the weighted scores to calculate the final grade.
     let finalGrade =
         weightedMCO + weightedExam + weightedAttendanceQuiz;
 
-    // Create variables for the letter grade and result message.
+    // Create variables for the letter grade and result.
     let letterGrade;
     let result;
 
-    // Assign the letter grade and result.
+    // Determine the letter grade and result message.
     if (finalGrade >= 90) {
         letterGrade = "A";
         result = "Excellent!";
@@ -116,9 +116,33 @@ function calculateGrade() {
     let resultParagraph = document.createElement("p");
     resultParagraph.textContent = "Result: " + result;
 
-    // Display all four paragraphs.
+    // Display all calculated results.
     resultDiv.appendChild(studentParagraph);
     resultDiv.appendChild(gradeParagraph);
     resultDiv.appendChild(letterParagraph);
     resultDiv.appendChild(resultParagraph);
+}
+
+// Clear all inputs and remove the previous result.
+function resetCalculator() {
+
+    // Clear the student's name.
+    document.getElementById("studentName").value = "";
+
+    // Clear the MCO grade.
+    document.getElementById("mco").value = "";
+
+    // Clear the exam grade.
+    document.getElementById("exam").value = "";
+
+    // Clear the attendance and quiz grade.
+    document.getElementById("attendanceQuiz").value = "";
+
+    // Remove the previous grade result and its color.
+    let resultDiv = document.getElementById("result");
+    resultDiv.textContent = "";
+    resultDiv.className = "";
+
+    // Place the cursor back in the student name field.
+    document.getElementById("studentName").focus();
 }
