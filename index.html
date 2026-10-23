@@ -9,51 +9,100 @@
 </head>
 <body>
     <div class="container">
+
         <h1>Student Grade Calculator</h1>
 
+        <!-- Input for the student's name. -->
         <label for="studentName">Student Name:</label>
-        <input type="text" id="studentName" placeholder="Enter student name">
+        <input
+            type="text"
+            id="studentName"
+            placeholder="Enter student name"
+        >
 
+        <!-- Input for the MCO grade, worth 50 percent. -->
         <label for="mco">MCO Grade (50%):</label>
-        <input type="number" id="mco" placeholder="Enter MCO grade"
-               min="0" max="100" step="any">
+        <input
+            type="number"
+            id="mco"
+            placeholder="Enter MCO grade"
+            min="0"
+            max="100"
+            step="any"
+        >
 
+        <!-- Input for the exam grade, worth 30 percent. -->
         <label for="exam">Exam Grade (30%):</label>
-        <input type="number" id="exam" placeholder="Enter exam grade"
-               min="0" max="100" step="any">
+        <input
+            type="number"
+            id="exam"
+            placeholder="Enter exam grade"
+            min="0"
+            max="100"
+            step="any"
+        >
 
+        <!-- Input for attendance and quiz, worth 20 percent. -->
         <label for="attendanceQuiz">Attendance and Quiz Grade (20%):</label>
-        <input type="number" id="attendanceQuiz"
-               placeholder="Enter attendance and quiz grade"
-               min="0" max="100" step="any">
+        <input
+            type="number"
+            id="attendanceQuiz"
+            placeholder="Enter attendance and quiz grade"
+            min="0"
+            max="100"
+            step="any"
+        >
 
+        <!-- Buttons for calculating and resetting grades. -->
         <div class="button-group">
             <button type="button" onclick="calculateGrade()">
                 Calculate Grade
             </button>
 
-            <button type="button" class="reset-button" onclick="resetCalculator()">
+            <button
+                type="button"
+                class="reset-button"
+                onclick="resetCalculator()"
+            >
                 Reset
             </button>
         </div>
 
-        <!-- Displays the latest calculation or validation message. -->
+        <!-- Displays the current result or an error message. -->
         <div id="result" aria-live="polite"></div>
 
-        <!-- Displays previously saved grade calculations. -->
+        <!-- Section for saved grade calculations. -->
         <section class="history-section">
+
             <h2>Calculation History</h2>
 
-            <button type="button" onclick="clearHistory()" class="clear-history-button">
+            <!-- Searches saved calculations by student name. -->
+            <input
+                type="text"
+                id="historySearch"
+                placeholder="Search student name..."
+                oninput="displayHistory()"
+                aria-label="Search calculation history by student name"
+            >
+
+            <!-- Deletes all saved history when confirmed. -->
+            <button
+                type="button"
+                onclick="clearHistory()"
+                class="clear-history-button"
+            >
                 Clear History
             </button>
 
+            <!-- JavaScript displays saved calculations here. -->
             <div id="historyList" aria-live="polite">
-                <!-- JavaScript adds saved calculations here. -->
             </div>
+
         </section>
+
     </div>
 
+    <!-- Connects the webpage to the JavaScript file. -->
     <script src="script.js"></script>
 </body>
 </html>

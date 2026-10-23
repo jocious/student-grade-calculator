@@ -1,5 +1,140 @@
 
-/* Add space above the calculation history section. */
+/* Styles the entire webpage. */
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Creates the main calculator box. */
+.container {
+    width: 100%;
+    max-width: 450px;
+    box-sizing: border-box;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: whitesmoke;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px lightgray;
+}
+
+/* Styles the main heading. */
+h1 {
+    text-align: center;
+    color: darkblue;
+    font-size: 26px;
+    margin-bottom: 25px;
+}
+
+/* Styles the input labels. */
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: black;
+}
+
+/* Styles all grade and name input boxes. */
+input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-size: 15px;
+    background-color: white;
+}
+
+/* Highlights an input when selected. */
+input:focus {
+    outline: 2px solid steelblue;
+    border-color: steelblue;
+}
+
+/* Places the Calculate and Reset buttons beside each other. */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Styles the buttons. */
+.button-group button {
+    flex: 1;
+    padding: 12px 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: royalblue;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Changes the Calculate button when hovered over. */
+.button-group button:hover {
+    background-color: darkblue;
+}
+
+/* Gives the Reset button a different color. */
+.button-group .reset-button {
+    background-color: gray;
+}
+
+/* Changes the Reset button when hovered over. */
+.button-group .reset-button:hover {
+    background-color: dimgray;
+}
+
+/* Styles the current calculation result area. */
+#result {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 5px;
+    overflow-wrap: anywhere;
+}
+
+/* Removes the empty result area's background and padding. */
+#result:empty {
+    display: none;
+}
+
+/* Styles the paragraphs inside the result area. */
+#result p {
+    margin: 7px 0;
+}
+
+/* Green background for excellent results. */
+#result.excellent {
+    background-color: lightgreen;
+    color: darkgreen;
+    border: 1px solid green;
+}
+
+/* Blue background for passing results. */
+#result.passed {
+    background-color: lightblue;
+    color: darkblue;
+    border: 1px solid steelblue;
+}
+
+/* Pink background for failing results. */
+#result.failed {
+    background-color: lightpink;
+    color: darkred;
+    border: 1px solid red;
+}
+
+/* Red background for validation errors. */
+#result.error {
+    background-color: mistyrose;
+    color: darkred;
+    border: 1px solid red;
+}
+
+/* Separates the calculation history from the calculator. */
 .history-section {
     margin-top: 30px;
     padding-top: 20px;
@@ -7,28 +142,51 @@
     text-align: left;
 }
 
-/* Center the history heading. */
+/* Styles the history heading. */
 .history-section h2 {
     text-align: center;
+    color: darkblue;
     font-size: 22px;
 }
 
-/* Style the button that deletes saved history. */
+/* Styles the history search box. */
+#historySearch {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 15px 0;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Highlights the search box when selected. */
+#historySearch:focus {
+    outline: 2px solid steelblue;
+    border-color: steelblue;
+}
+
+/* Styles the Clear History button. */
 .clear-history-button {
     display: block;
     margin: 10px auto 20px;
+    padding: 10px 15px;
     background-color: firebrick;
     color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-/* Change the clear-history button when hovered over. */
+/* Changes the Clear History button when hovered over. */
 .clear-history-button:hover {
     background-color: darkred;
 }
 
-/* Style each saved calculation. */
+/* Styles each saved calculation card. */
 .history-card {
-    background-color: whitesmoke;
+    background-color: white;
     border: 1px solid lightgray;
     border-radius: 5px;
     padding: 12px;
@@ -36,13 +194,29 @@
     overflow-wrap: anywhere;
 }
 
-/* Reduce unnecessary space between paragraphs in history cards. */
+/* Controls the spacing inside each history card. */
 .history-card p {
     margin: 6px 0;
 }
 
-/* Make the calculation date smaller. */
+/* Makes the calculation date smaller. */
 .history-card small {
     color: dimgray;
     font-size: 12px;
+}
+
+/* Adjusts the calculator for smaller screens. */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        margin: 10px auto;
+        padding: 18px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
 }
