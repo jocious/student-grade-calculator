@@ -4,18 +4,12 @@ const HISTORY_KEY = "studentGradeCalculatorHistory";
 
 /* Calculates the student's weighted grade. */
 function calculateGrade() {
-
-    // Get the student's name and remove extra spaces.
     let name = document.getElementById("studentName").value.trim();
-
-    // Get the grades as text so empty inputs can be detected.
     let mcoInput = document.getElementById("mco").value.trim();
     let examInput = document.getElementById("exam").value.trim();
-
     let attendanceQuizInput =
         document.getElementById("attendanceQuiz").value.trim();
 
-    // Get the area used to display the current result.
     let resultDiv = document.getElementById("result");
 
     // Clear the previous result and its color.
@@ -38,7 +32,7 @@ function calculateGrade() {
         return;
     }
 
-    // Convert the input values from text into numbers.
+    // Convert input text into numbers.
     let mco = Number(mcoInput);
     let exam = Number(examInput);
     let attendanceQuiz = Number(attendanceQuizInput);
@@ -53,7 +47,7 @@ function calculateGrade() {
         return;
     }
 
-    // Make sure every grade is between 0 and 100.
+    // Check that every grade is between 0 and 100.
     if (
         mco < 0 || mco > 100 ||
         exam < 0 || exam > 100 ||
@@ -63,21 +57,21 @@ function calculateGrade() {
         return;
     }
 
-    // Calculate the weighted contribution of each grade.
+    // Calculate each weighted grade contribution.
     let weightedMCO = mco * 0.50;
     let weightedExam = exam * 0.30;
     let weightedAttendanceQuiz = attendanceQuiz * 0.20;
 
-    // Add the weighted contributions for the final grade.
+    // Calculate the final weighted grade.
     let finalGrade =
         weightedMCO + weightedExam + weightedAttendanceQuiz;
 
-    // Prepare variables for the letter grade and result message.
+    // Prepare the letter grade, result message, and result color.
     let letterGrade;
     let result;
     let resultClass;
 
-    // Assign a letter grade based on the final grade.
+    // Assign a letter grade using the sample grading scale.
     if (finalGrade >= 90) {
         letterGrade = "A";
         result = "Excellent!";
@@ -100,33 +94,32 @@ function calculateGrade() {
         resultClass = "failed";
     }
 
-    // Apply the correct result color.
+    // Apply the result color.
     resultDiv.className = resultClass;
 
-    // Create and display the student's name.
+    // Display the student's name.
     let studentParagraph = document.createElement("p");
     studentParagraph.textContent = "Student: " + name;
 
-    // Create and display the final grade.
+    // Display the final grade.
     let gradeParagraph = document.createElement("p");
     gradeParagraph.textContent =
         "Final Grade: " + finalGrade.toFixed(2);
 
-    // Create and display the letter grade.
+    // Display the letter grade.
     let letterParagraph = document.createElement("p");
     letterParagraph.textContent = "Letter Grade: " + letterGrade;
 
-    // Create and display the result message.
+    // Display the result message.
     let resultParagraph = document.createElement("p");
     resultParagraph.textContent = "Result: " + result;
 
-    // Add all result paragraphs to the result area.
     resultDiv.appendChild(studentParagraph);
     resultDiv.appendChild(gradeParagraph);
     resultDiv.appendChild(letterParagraph);
     resultDiv.appendChild(resultParagraph);
 
-    // Create a record containing this calculation.
+    // Create a record for the calculation history.
     let record = {
         name: name,
         mco: mco,
@@ -138,192 +131,215 @@ function calculateGrade() {
         date: new Date().toLocaleString()
     };
 
-    // Save the record and refresh the history display.
+    // Save the calculation.
     saveCalculation(record);
 }
 
-/* Displays a validation error message. */
+/* Displays an error message. */
 function showError(message) {
     let resultDiv = document.getElementById("result");
-
     resultDiv.textContent = message;
     resultDiv.className = "error";
 }
 
-/* Retrieves saved calculations from browser storage. */
+/* Retrieves the saved history from localStorage. */
 function getHistory() {
     try {
-        // Read the saved history as text.
         let savedHistory = localStorage.getItem(HISTORY_KEY);
 
-        // Return an empty array if nothing has been saved.
+        // Return an empty array if no history exists.
         if (savedHistory === null) {
             return [];
         }
 
-        // Convert the saved JSON text back into an array.
+        // Convert the stored JSON text into an array.
         let history = JSON.parse(savedHistory);
 
         // Make sure the stored data is an array.
         return Array.isArray(history) ? history : [];
-
     } catch (error) {
-        // Return an empty array if stored data cannot be read.
         return [];
     }
 }
 
-/* Saves a new calculation in browser storage. */
+/* Saves a new calculation. */
 function saveCalculation(record) {
     let history = getHistory();
 
-    // Put the newest calculation at the beginning.
+    // Put the newest calculation first.
     history.unshift(record);
 
     try {
-        // Convert the array into JSON text and save it.
         localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-
-        // Refresh the history shown on the page.
         displayHistory();
-
     } catch (error) {
-        // The current calculation is still displayed if saving fails.
         alert("The grade was calculated, but history could not be saved.");
     }
 }
 
 /* Displays saved calculations and filters them by student name. */
 function displayHistory() {
-
-    // Get the area where history cards will appear.
     let historyList = document.getElementById("historyList");
-
-    // Get the search text entered by the user.
     let searchInput = document.getElementById("historySearch");
-
-    // Convert the search text to lowercase.
     let searchText = searchInput.value.trim().toLowerCase();
 
-    // Remove previously displayed cards.
+    // Clear the previously displayed cards.
     historyList.textContent = "";
 
-    // Retrieve all saved calculations.
     let history = getHistory();
 
-    // Filter history based on the student's name.
+    // Find records whose student names match the search.
     let filteredHistory = history.filter(function(record) {
         return String(record.name).toLowerCase().includes(searchText);
     });
 
-    // Display a message when no history has been saved.
+    // Show a message when no calculations have been saved.
     if (history.length === 0) {
-        let emptyMessage = document.createElement("p");
-
-        emptyMessage.textContent = "No calculation history yet.";
-
-        historyList.appendChild(emptyMessage);
+        let message = document.createElement("p");
+        message.textContent = "No calculation history yet.";
+        historyList.appendChild(message);
         return;
     }
 
-    // Display a message when the search finds no matching student.
+    // Show a message when no records match the search.
     if (filteredHistory.length === 0) {
-        let emptyMessage = document.createElement("p");
-
-        emptyMessage.textContent =
-            "No students found matching your search.";
-
-        historyList.appendChild(emptyMessage);
+        let message = document.createElement("p");
+        message.textContent = "No students found matching your search.";
+        historyList.appendChild(message);
         return;
     }
 
-    // Create a card for each matching calculation.
+    // Display each matching calculation.
     filteredHistory.forEach(function(record) {
-
         let card = document.createElement("div");
         card.className = "history-card";
 
-        // Display the student's name.
         let name = document.createElement("p");
         name.textContent = "Student: " + record.name;
 
-        // Display the final grade.
         let grade = document.createElement("p");
         grade.textContent =
             "Final Grade: " + Number(record.finalGrade).toFixed(2);
 
-        // Display the letter grade.
         let letter = document.createElement("p");
         letter.textContent = "Letter Grade: " + record.letterGrade;
 
-        // Display whether the student passed or failed.
         let result = document.createElement("p");
         result.textContent = "Result: " + record.result;
 
-        // Display the date and time of the calculation.
         let date = document.createElement("small");
         date.textContent = "Calculated: " + record.date;
 
-        // Add the information to the card.
         card.appendChild(name);
         card.appendChild(grade);
         card.appendChild(letter);
         card.appendChild(result);
         card.appendChild(date);
 
-        // Add the card to the webpage.
         historyList.appendChild(card);
     });
 }
 
-/* Clears the input fields and current result. */
+/* Clears the input fields without deleting saved history. */
 function resetCalculator() {
-
-    // Clear the student's name.
     document.getElementById("studentName").value = "";
-
-    // Clear all grade inputs.
     document.getElementById("mco").value = "";
     document.getElementById("exam").value = "";
     document.getElementById("attendanceQuiz").value = "";
 
-    // Clear the displayed result and its color.
     let resultDiv = document.getElementById("result");
     resultDiv.textContent = "";
     resultDiv.className = "";
 
-    // Put the cursor back in the student name input.
     document.getElementById("studentName").focus();
 }
 
 /* Deletes all saved calculations after confirmation. */
 function clearHistory() {
-
-    // Ask the user before permanently clearing the saved history.
     let shouldClear = confirm(
         "Are you sure you want to delete all calculation history?"
     );
 
-    // Stop if the user chooses Cancel.
+    // Stop if the user cancels.
     if (!shouldClear) {
         return;
     }
 
     try {
-        // Remove the saved history from browser storage.
         localStorage.removeItem(HISTORY_KEY);
-
-        // Clear the search box.
         document.getElementById("historySearch").value = "";
-
-        // Update the page to show that history is empty.
         displayHistory();
-
     } catch (error) {
-        // Inform the user if history cannot be deleted.
         alert("Unable to clear the calculation history.");
     }
 }
 
-/* Display saved calculations when the webpage first opens. */
+/* Exports all saved calculations to a CSV file. */
+function exportHistory() {
+    let history = getHistory();
+
+    // Do not download a file if no calculations exist.
+    if (history.length === 0) {
+        alert("There is no calculation history to export.");
+        return;
+    }
+
+    // Define the column headings for the CSV file.
+    let rows = [
+        [
+            "Student Name",
+            "MCO Grade",
+            "Exam Grade",
+            "Attendance and Quiz Grade",
+            "Final Grade",
+            "Letter Grade",
+            "Result",
+            "Date Calculated"
+        ]
+    ];
+
+    // Add every saved calculation as a row.
+    history.forEach(function(record) {
+        rows.push([
+            record.name,
+            record.mco,
+            record.exam,
+            record.attendanceQuiz,
+            Number(record.finalGrade).toFixed(2),
+            record.letterGrade,
+            record.result,
+            record.date
+        ]);
+    });
+
+    // Escape CSV values so commas and quotation marks are handled correctly.
+    let csvContent = rows.map(function(row) {
+        return row.map(function(value) {
+            let safeValue = String(value ?? "").replace(/"/g, '""');
+            return '"' + safeValue + '"';
+        }).join(",");
+    }).join("\r\n");
+
+    // Add a byte-order mark to help spreadsheet programs read UTF-8 text.
+    let csvFile = new Blob(["\uFEFF" + csvContent], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    // Create a temporary download link.
+    let downloadUrl = URL.createObjectURL(csvFile);
+    let link = document.createElement("a");
+
+    link.href = downloadUrl;
+    link.download = "student-grade-history.csv";
+
+    // Start the file download.
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Release the temporary browser URL.
+    URL.revokeObjectURL(downloadUrl);
+}
+
+/* Display saved history when the page first opens. */
 displayHistory();

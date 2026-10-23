@@ -37,7 +37,7 @@ label {
     color: black;
 }
 
-/* Styles all grade and name input boxes. */
+/* Styles the input fields. */
 input {
     width: 100%;
     box-sizing: border-box;
@@ -54,14 +54,14 @@ input:focus {
     border-color: steelblue;
 }
 
-/* Places the Calculate and Reset buttons beside each other. */
+/* Arranges the Calculate and Reset buttons. */
 .button-group {
     display: flex;
     gap: 10px;
     margin-top: 20px;
 }
 
-/* Styles the buttons. */
+/* Styles the Calculate and Reset buttons. */
 .button-group button {
     flex: 1;
     padding: 12px 8px;
@@ -78,7 +78,7 @@ input:focus {
     background-color: darkblue;
 }
 
-/* Gives the Reset button a different color. */
+/* Styles the Reset button. */
 .button-group .reset-button {
     background-color: gray;
 }
@@ -88,7 +88,7 @@ input:focus {
     background-color: dimgray;
 }
 
-/* Styles the current calculation result area. */
+/* Styles the current calculation result. */
 #result {
     margin-top: 20px;
     padding: 12px;
@@ -96,45 +96,45 @@ input:focus {
     overflow-wrap: anywhere;
 }
 
-/* Removes the empty result area's background and padding. */
+/* Hides the result area when it is empty. */
 #result:empty {
     display: none;
 }
 
-/* Styles the paragraphs inside the result area. */
+/* Controls spacing inside the result. */
 #result p {
     margin: 7px 0;
 }
 
-/* Green background for excellent results. */
+/* Styles an excellent result. */
 #result.excellent {
     background-color: lightgreen;
     color: darkgreen;
     border: 1px solid green;
 }
 
-/* Blue background for passing results. */
+/* Styles a passing result. */
 #result.passed {
     background-color: lightblue;
     color: darkblue;
     border: 1px solid steelblue;
 }
 
-/* Pink background for failing results. */
+/* Styles a failing result. */
 #result.failed {
     background-color: lightpink;
     color: darkred;
     border: 1px solid red;
 }
 
-/* Red background for validation errors. */
+/* Styles validation error messages. */
 #result.error {
     background-color: mistyrose;
     color: darkred;
     border: 1px solid red;
 }
 
-/* Separates the calculation history from the calculator. */
+/* Separates the history section from the calculator. */
 .history-section {
     margin-top: 30px;
     padding-top: 20px;
@@ -149,16 +149,10 @@ input:focus {
     font-size: 22px;
 }
 
-/* Styles the history search box. */
+/* Styles the search box. */
 #historySearch {
     display: block;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
     margin: 15px 0;
-    border: 1px solid gray;
-    border-radius: 5px;
-    font-size: 16px;
 }
 
 /* Highlights the search box when selected. */
@@ -167,16 +161,38 @@ input:focus {
     border-color: steelblue;
 }
 
-/* Styles the Clear History button. */
-.clear-history-button {
-    display: block;
-    margin: 10px auto 20px;
-    padding: 10px 15px;
-    background-color: firebrick;
-    color: white;
+/* Arranges the Export and Clear History buttons. */
+.history-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0 20px;
+}
+
+/* Shared styles for the history action buttons. */
+.history-actions button {
+    padding: 10px 12px;
     border: none;
     border-radius: 5px;
+    color: white;
     cursor: pointer;
+    font-size: 13px;
+}
+
+/* Styles the Export History button. */
+.export-button {
+    background-color: seagreen;
+}
+
+/* Changes the Export button when hovered over. */
+.export-button:hover {
+    background-color: darkgreen;
+}
+
+/* Styles the Clear History button. */
+.clear-history-button {
+    background-color: firebrick;
 }
 
 /* Changes the Clear History button when hovered over. */
@@ -194,18 +210,18 @@ input:focus {
     overflow-wrap: anywhere;
 }
 
-/* Controls the spacing inside each history card. */
+/* Controls spacing inside history cards. */
 .history-card p {
     margin: 6px 0;
 }
 
-/* Makes the calculation date smaller. */
+/* Styles the calculation date. */
 .history-card small {
     color: dimgray;
     font-size: 12px;
 }
 
-/* Adjusts the calculator for smaller screens. */
+/* Adjusts the layout for smaller screens. */
 @media (max-width: 480px) {
     body {
         padding: 10px;
@@ -218,5 +234,13 @@ input:focus {
 
     h1 {
         font-size: 22px;
+    }
+
+    .history-actions {
+        flex-direction: column;
+    }
+
+    .history-actions button {
+        width: 100%;
     }
 }
