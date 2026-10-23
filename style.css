@@ -1,34 +1,45 @@
+
+/* Style the entire webpage. */
 body {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     background-color: lightgray;
     text-align: center;
     margin-top: 50px;
+    padding: 0 15px;
 }
 
+/* Style the main calculator box. */
 .container {
     width: 400px;
+    max-width: 100%;
     margin: auto;
     background-color: white;
     padding: 30px;
     border-radius: 10px;
+    box-sizing: border-box;
 }
 
+/* Add space below the heading. */
 h1 {
     margin-bottom: 25px;
 }
 
+/* Place each label above its input. */
 label {
     display: block;
     text-align: left;
     margin-top: 15px;
 }
 
+/* Style all input fields. */
 input {
-    width: 95%;
+    width: 100%;
     padding: 10px;
     margin-top: 5px;
+    box-sizing: border-box;
 }
 
+/* Style the Calculate Grade button. */
 button {
     margin-top: 20px;
     padding: 10px 20px;
@@ -36,13 +47,32 @@ button {
     color: white;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 
+/* Change the button color when the mouse is over it. */
 button:hover {
     background-color: gray;
 }
 
+/* Style the result and validation messages. */
 #result {
     margin-top: 25px;
     font-size: 18px;
+    overflow-wrap: anywhere;
+}
+
+/* Make the calculator fit smaller screens. */
+@media screen and (max-width: 480px) {
+    body {
+        margin-top: 20px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
 }

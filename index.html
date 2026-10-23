@@ -1,34 +1,41 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Student Grade Calculator</title>
 
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 <body>
 
     <div class="container">
 
         <h1>Student Grade Calculator</h1>
 
-        <label>Student Name:</label>
-        <input type="text" id="studentName">
+        <!-- Input for the student's name -->
+        <label for="studentName">Student Name:</label>
+        <input type="text" id="studentName" placeholder="Enter student name">
 
-        <label>Quiz Grade:</label>
-        <input type="number" id="quiz">
+        <!-- Input for the quiz grade -->
+        <label for="quiz">Quiz Grade (0-100):</label>
+        <input type="number" id="quiz" placeholder="Enter quiz grade" min="0" max="100" step="any">
 
-        <label>Assignment Grade:</label>
-        <input type="number" id="assignment">
+        <!-- Input for the assignment grade -->
+        <label for="assignment">Assignment Grade (0-100):</label>
+        <input type="number" id="assignment" placeholder="Enter assignment grade" min="0" max="100" step="any">
 
-        <label>Exam Grade:</label>
-        <input type="number" id="exam">
+        <!-- Input for the exam grade -->
+        <label for="exam">Exam Grade (0-100):</label>
+        <input type="number" id="exam" placeholder="Enter exam grade" min="0" max="100" step="any">
 
-        <button onclick="calculateGrade()">Calculate Grade</button>
+        <!-- Button that calculates the average grade -->
+        <button type="button" onclick="calculateGrade()">Calculate Grade</button>
 
-        <div id="result"></div>
+        <!-- Displays validation messages and the final result -->
+        <div id="result" aria-live="polite"></div>
 
     </div>
 
