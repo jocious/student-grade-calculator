@@ -24,14 +24,14 @@ h1 {
     margin-bottom: 25px;
 }
 
-/* Place each label above its input. */
+/* Place each label above its input field. */
 label {
     display: block;
     text-align: left;
     margin-top: 15px;
 }
 
-/* Style all input fields. */
+/* Style all grade and name inputs. */
 input {
     width: 100%;
     padding: 10px;
@@ -50,7 +50,7 @@ button {
     cursor: pointer;
 }
 
-/* Change the button color when the mouse is over it. */
+/* Change the button color when the mouse hovers over it. */
 button:hover {
     background-color: gray;
 }
@@ -62,7 +62,7 @@ button:hover {
     overflow-wrap: anywhere;
 }
 
-/* Make the calculator fit smaller screens. */
+/* Adjust the calculator for smaller screens. */
 @media screen and (max-width: 480px) {
     body {
         margin-top: 20px;

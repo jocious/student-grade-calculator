@@ -1,88 +1,98 @@
 
-// Calculate the student's average grade and display the result.
+// Calculate the student's weighted grade and display the result.
 function calculateGrade() {
 
     // Get the student's name and remove extra spaces.
     let name = document.getElementById("studentName").value.trim();
 
-    // Get the original grade input values.
-    // Keep them as text first so empty fields are not mistaken for zero.
-    let quizInput = document.getElementById("quiz").value.trim();
-    let assignmentInput = document.getElementById("assignment").value.trim();
+    // Get the original grade values as text.
+    // This lets us detect empty inputs before converting them to numbers.
+    let mcoInput = document.getElementById("mco").value.trim();
     let examInput = document.getElementById("exam").value.trim();
+    let attendanceQuizInput =
+        document.getElementById("attendanceQuiz").value.trim();
 
-    // Get the HTML element where messages and results will appear.
+    // Get the area where the result or error message will appear.
     let resultDiv = document.getElementById("result");
 
-    // Clear the previous result before checking the new input.
+    // Remove the previous result before calculating again.
     resultDiv.textContent = "";
 
-    // Check whether the student name is empty.
+    // Check whether the student entered a name.
     if (name === "") {
         resultDiv.textContent = "Please enter the student's name.";
         return;
     }
 
-    // Check whether any grade field is empty.
-    if (quizInput === "" || assignmentInput === "" || examInput === "") {
+    // Check whether all three grade fields contain values.
+    if (
+        mcoInput === "" ||
+        examInput === "" ||
+        attendanceQuizInput === ""
+    ) {
         resultDiv.textContent = "Please enter all three grades.";
         return;
     }
 
-    // Convert the grade inputs from text into numbers.
-    let quiz = Number(quizInput);
-    let assignment = Number(assignmentInput);
+    // Convert the input values from text into numbers.
+    let mco = Number(mcoInput);
     let exam = Number(examInput);
+    let attendanceQuiz = Number(attendanceQuizInput);
 
-    // Check whether all grades are valid numbers.
+    // Make sure the entered grades are valid numbers.
     if (
-        !Number.isFinite(quiz) ||
-        !Number.isFinite(assignment) ||
-        !Number.isFinite(exam)
+        !Number.isFinite(mco) ||
+        !Number.isFinite(exam) ||
+        !Number.isFinite(attendanceQuiz)
     ) {
         resultDiv.textContent = "Please enter valid numeric grades.";
         return;
     }
 
-    // Check that every grade is between 0 and 100.
+    // Make sure every grade is between 0 and 100.
     if (
-        quiz < 0 || quiz > 100 ||
-        assignment < 0 || assignment > 100 ||
-        exam < 0 || exam > 100
+        mco < 0 || mco > 100 ||
+        exam < 0 || exam > 100 ||
+        attendanceQuiz < 0 || attendanceQuiz > 100
     ) {
         resultDiv.textContent = "Grades must be between 0 and 100.";
         return;
     }
 
-    // Calculate the average of the three grades.
-    let average = (quiz + assignment + exam) / 3;
+    // Calculate each component using its assigned percentage.
+    let weightedMCO = mco * 0.50;                 // 50% weight
+    let weightedExam = exam * 0.30;               // 30% weight
+    let weightedAttendanceQuiz = attendanceQuiz * 0.20; // 20% weight
 
-    // Create a variable to store the student's result.
+    // Add the weighted scores to get the final grade.
+    let finalGrade =
+        weightedMCO + weightedExam + weightedAttendanceQuiz;
+
+    // Determine the student's result based on the final grade.
     let result;
 
-    // Determine the result based on the average.
-    if (average >= 90) {
+    if (finalGrade >= 90) {
         result = "Excellent!";
-    } else if (average >= 75) {
+    } else if (finalGrade >= 75) {
         result = "Passed!";
     } else {
         result = "Failed.";
     }
 
-    // Create separate paragraph elements for the results.
-    // Using textContent displays the student's name as text,
-    // rather than treating it as HTML code.
+    // Create a paragraph to display the student's name.
     let studentParagraph = document.createElement("p");
     studentParagraph.textContent = "Student: " + name;
 
-    let averageParagraph = document.createElement("p");
-    averageParagraph.textContent = "Average: " + average.toFixed(2);
+    // Display the final weighted grade to two decimal places.
+    let gradeParagraph = document.createElement("p");
+    gradeParagraph.textContent = "Final Grade: " + finalGrade.toFixed(2);
 
+    // Display the result classification.
     let resultParagraph = document.createElement("p");
     resultParagraph.textContent = "Result: " + result;
 
-    // Add the result paragraphs to the result area.
+    // Add all three paragraphs to the result area.
     resultDiv.appendChild(studentParagraph);
-    resultDiv.appendChild(averageParagraph);
+    resultDiv.appendChild(gradeParagraph);
     resultDiv.appendChild(resultParagraph);
 }
